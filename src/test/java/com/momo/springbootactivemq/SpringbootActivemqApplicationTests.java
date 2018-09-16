@@ -1,6 +1,6 @@
 package com.momo.springbootactivemq;
 
-import com.momo.springbootactivemq.queue.Producer;
+import com.momo.springbootactivemq.queue.test.TestProducer;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,7 @@ import javax.jms.Destination;
 public class SpringbootActivemqApplicationTests {
 
     @Autowired
-    private Producer producer;
+    private TestProducer producer;
 
     @Test
     public void queueTest() {

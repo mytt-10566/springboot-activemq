@@ -1,4 +1,4 @@
-package com.momo.springbootactivemq.queue;
+package com.momo.springbootactivemq.queue.test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import javax.jms.Destination;
 
-@Service("producer")
-public class Producer {
+@Service
+public class TestProducer {
 
     // 也可以注入JmsTemplate，JmsMessagingTemplate对JmsTemplate进行了封装
     @Autowired
