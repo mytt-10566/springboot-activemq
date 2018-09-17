@@ -1,6 +1,7 @@
 package com.momo.springbootactivemq;
 
 import com.momo.springbootactivemq.queue.test.TestProducer;
+import com.momo.springbootactivemq.topic.Publisher;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,12 +17,21 @@ public class SpringbootActivemqApplicationTests {
 
     @Autowired
     private TestProducer producer;
+    @Autowired
+    private Publisher publisher;
 
     @Test
     public void queueTest() {
         Destination destination = new ActiveMQQueue("test.queue");
         for (int i = 0; i < 100; i++) {
             producer.sendMessage(destination, "测试信息，i=" + i);
+        }
+    }
+
+    @Test
+    public void subscriber() {
+        for (int i = 0; i < 10; i++) {
+            publisher.publish("test.topic", "Topic Message " + i);
         }
     }
 }
