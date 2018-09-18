@@ -1,4 +1,4 @@
-package com.momo.springbootactivemq.topic.origin.persistence;
+package com.momo.springbootactivemq.origin.topic.persistence;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 

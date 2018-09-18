@@ -1,11 +1,10 @@
-package com.momo.springbootactivemq.queue.origin.replyto;
+package com.momo.springbootactivemq.origin.topic.nopersistence;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
-import java.util.Enumeration;
 
-public class QueueReceiver {
+public class NoPersistenceReceiver {
 
     public static void main(String[] args) throws Exception {
         String brokerURL = "tcp://activemq01.momo.com:61616";
@@ -14,28 +13,24 @@ public class QueueReceiver {
         connection.start();
 
         final Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
-        Destination destination = session.createQueue("origin.queue");
+        Destination destination = session.createTopic("origin.topic");
 
         MessageConsumer consumer = session.createConsumer(destination);
 
         // TextMessage
         receiveTextMessage(session, consumer);
 
+        session.commit();
         session.close();
         connection.close();
     }
 
     private static void receiveTextMessage(Session session, MessageConsumer consumer) throws Exception {
-        int i = 0;
-        while (i < 3) {
-            i++;
-            TextMessage message = (TextMessage) consumer.receive();
-            session.commit();
-
-            // replyTo
-            Destination jmsReplyTo = message.getJMSReplyTo();
-
-            System.out.println("收到TextMessage：" + message.getText());
+        Message message = consumer.receive();
+        while (message != null) {
+            TextMessage textMessage = (TextMessage) message;
+            System.out.println("收到TextMessage：" + textMessage.getText());
+            message = consumer.receive(1000L);
         }
     }
 

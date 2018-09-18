@@ -1,4 +1,4 @@
-package com.momo.springbootactivemq.queue.origin.common;
+package com.momo.springbootactivemq.origin.queue.common;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 

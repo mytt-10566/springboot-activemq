@@ -1,11 +1,11 @@
-package com.momo.springbootactivemq.queue.origin.common;
+package com.momo.springbootactivemq.origin.queue.common;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 import java.util.Enumeration;
 
-public class QueueReceiverDupsAck {
+public class QueueReceiver {
 
     public static void main(String[] args) throws Exception {
         String brokerURL = "tcp://activemq01.momo.com:61616";
@@ -16,13 +16,15 @@ public class QueueReceiverDupsAck {
         // JMSXPropertyNames
         getJMSXProperty(connection);
 
-        final Session session = connection.createSession(Boolean.FALSE, Session.DUPS_OK_ACKNOWLEDGE);
+        final Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
         Destination destination = session.createQueue("origin.queue");
 
         MessageConsumer consumer = session.createConsumer(destination);
 
         // TextMessage
-        receiveTextMessage(consumer);
+//        receiveTextMessage(session, consumer);
+        // MapMessage
+        receiveMapMessage(session, consumer);
 
         session.close();
         connection.close();
@@ -36,17 +38,26 @@ public class QueueReceiverDupsAck {
         }
     }
 
-    private static void receiveTextMessage(MessageConsumer consumer) throws Exception {
+    private static void receiveTextMessage(Session session, MessageConsumer consumer) throws Exception {
         int i = 0;
         while (i < 3) {
-            TextMessage message = (TextMessage) consumer.receive();
-            if (i == 2) {
-                // 确认收到通知
-                message.acknowledge();
-            }
-            System.out.println("收到TextMessage：" + message.getText());
             i++;
+            TextMessage message = (TextMessage) consumer.receive();
+            session.commit();
+            System.out.println("收到TextMessage：" + message.getText());
         }
     }
 
+    private static void receiveMapMessage(Session session, MessageConsumer consumer) throws Exception {
+        int i = 0;
+        while (i < 3) {
+
+            MapMessage message = (MapMessage) consumer.receive();
+            session.commit();
+            System.out.println("收到MapMessage：" + message.getString("map message"));
+            System.out.println("extra message：" + message.getStringProperty("extra"));
+
+            i++;
+        }
+    }
 }
