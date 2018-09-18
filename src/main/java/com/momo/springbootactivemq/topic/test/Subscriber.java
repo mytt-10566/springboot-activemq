@@ -2,7 +2,7 @@
  * Copyright (C) 2017-2018 Qy All rights reserved
  * Description:Subscriber.java
  */
-package com.momo.springbootactivemq.topic;
+package com.momo.springbootactivemq.topic.test;
 
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;

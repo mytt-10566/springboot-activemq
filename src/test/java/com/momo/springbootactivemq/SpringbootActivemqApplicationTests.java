@@ -1,7 +1,7 @@
 package com.momo.springbootactivemq;
 
 import com.momo.springbootactivemq.queue.test.TestProducer;
-import com.momo.springbootactivemq.topic.Publisher;
+import com.momo.springbootactivemq.topic.test.Publisher;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.junit.Test;
 import org.junit.runner.RunWith;

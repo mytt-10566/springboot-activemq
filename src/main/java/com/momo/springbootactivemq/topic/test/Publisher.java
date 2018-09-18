@@ -2,7 +2,7 @@
  * Copyright (C) 2017-2018 Qy All rights reserved
  * Description:Publisher.java
  */
-package com.momo.springbootactivemq.topic;
+package com.momo.springbootactivemq.topic.test;
 
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;
