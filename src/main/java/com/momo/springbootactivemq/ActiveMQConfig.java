@@ -1,8 +1,4 @@
-/*
- * Copyright (C) 2017-2018 Qy All rights reserved
- * Description:ActiveMQConfig.java
- */
-package com.momo.springbootactivemq.config.amq;
+package com.momo.springbootactivemq;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +13,11 @@ import javax.jms.ConnectionFactory;
  * @author: MQG
  * @date: 2018/9/7
  */
-//@Configuration
+@Configuration
 public class ActiveMQConfig {
 
     @Bean("topicJmsListenerContainerFactory")
-    JmsListenerContainerFactory<?> jmsListenerContainerFactory(ConnectionFactory connectionFactory) {
+    JmsListenerContainerFactory<?> topicJmsListenerContainerFactory(ConnectionFactory connectionFactory) {
         SimpleJmsListenerContainerFactory factory = new SimpleJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setPubSubDomain(Boolean.TRUE);

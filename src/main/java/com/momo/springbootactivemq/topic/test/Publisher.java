@@ -20,10 +20,11 @@ public class Publisher {
     
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
-    
+
     public void publish(String destinationName, String message) {
         Destination destination = new ActiveMQTopic(destinationName);
         System.out.println("====== 发布topic消息 " + message);
         jmsMessagingTemplate.convertAndSend(destination, message);
     }
+    
 }

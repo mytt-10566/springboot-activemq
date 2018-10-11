@@ -1,4 +1,4 @@
-package com.momo.springbootactivemq.config.amq;
+package com.momo.springbootactivemq.jmsmessagesender.config;
 
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.momo.springbootactivemq.config.amq;
+package com.momo.springbootactivemq.jmsmessagesender.config;
 
 import org.springframework.jms.core.JmsTemplate;
 

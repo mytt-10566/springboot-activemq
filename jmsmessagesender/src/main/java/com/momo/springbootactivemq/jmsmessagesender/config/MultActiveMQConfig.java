@@ -2,7 +2,7 @@
  * Copyright (C) 2017-2018 Qy All rights reserved
  * Description:MultActiveMQConfig.java
  */
-package com.momo.springbootactivemq.config.amq;
+package com.momo.springbootactivemq.jmsmessagesender.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +33,8 @@ public class MultActiveMQConfig {
         queueJmsTemplate.setSessionAcknowledgeMode(Session.AUTO_ACKNOWLEDGE);
         queueJmsTemplate.setExplicitQosEnabled(true);
         queueJmsTemplate.setTimeToLive(604800000);
-        
+        wrapper.setQueueJmsTemplate(queueJmsTemplate);
+
         // topic
         JmsTemplate topicJmsTemplate = new JmsTemplate(cachingConnectionFactory);
         topicJmsTemplate.setConnectionFactory(cachingConnectionFactory);
@@ -42,11 +43,7 @@ public class MultActiveMQConfig {
         topicJmsTemplate.setSessionAcknowledgeMode(Session.AUTO_ACKNOWLEDGE);
         topicJmsTemplate.setExplicitQosEnabled(true);
         topicJmsTemplate.setTimeToLive(604800000);
-
-        
-
         wrapper.setTopicJmsTemplate(topicJmsTemplate);
-        wrapper.setQueueJmsTemplate(queueJmsTemplate);
 
         return wrapper;
     }
