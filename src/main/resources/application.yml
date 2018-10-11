@@ -1,6 +1,7 @@
 spring:
   activemq:
-    broker-url: tcp://activemq01.momo.com:61616
+#    broker-url: tcp://activemq01.momo.com:61616
+    broker-url: tcp://dev.sks.org:61616
     user: admin
     password: admin
     pool:

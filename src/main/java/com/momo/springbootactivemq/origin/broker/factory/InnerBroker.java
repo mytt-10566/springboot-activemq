@@ -1,4 +1,4 @@
-package com.momo.springbootactivemq.origin.broker;
+package com.momo.springbootactivemq.origin.broker.factory;
 
 import org.apache.activemq.broker.BrokerService;
 
