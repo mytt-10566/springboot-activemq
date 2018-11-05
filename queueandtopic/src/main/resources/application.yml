@@ -1,0 +1,17 @@
+spring:
+  activemq:
+#    broker-url: tcp://activemq01.momo.com:61616
+    broker-url: tcp://dev.sks.org:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 50
+      expiry-timeout: 10000
+      idle-timeout: 30000
+      
+mq: 
+  queue: 
+    test: test.queue
+  topic: 
+    test: test.topic
