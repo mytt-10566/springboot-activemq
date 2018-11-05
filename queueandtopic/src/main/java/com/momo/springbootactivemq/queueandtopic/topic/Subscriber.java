@@ -11,7 +11,6 @@ import javax.jms.TextMessage;
  */
 @Service
 public class Subscriber {
-
     @JmsListener(destination = "${mq.topic.test}", containerFactory = "topicListenerFactory")
     public void receiveTopic1(TextMessage text) throws Exception {
         System.out.println("\t" + Thread.currentThread().getName() + ":Consumer收到的报文为:" + text.getText());
@@ -21,5 +20,4 @@ public class Subscriber {
     public void receiveTopic2(TextMessage text) throws Exception {
         System.out.println("\t\t" + Thread.currentThread().getName() + ":Consumer收到的报文为:" + text.getText());
     }
-
 }

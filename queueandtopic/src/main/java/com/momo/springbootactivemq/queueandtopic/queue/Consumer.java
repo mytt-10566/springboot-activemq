@@ -16,5 +16,4 @@ public class Consumer {
     public void receiveQueue(TextMessage text) throws Exception {
         System.out.println(Thread.currentThread().getName() + ":Consumer收到的报文为:" + text.getText());
     }
-
 }

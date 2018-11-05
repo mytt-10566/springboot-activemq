@@ -24,5 +24,4 @@ public class JmsMessageSender {
     public void sendJsonMessage(Destination destination, Object data) throws JmxException {
         jmsTemplate.convertAndSend(destination, JSON.toJSONString(data));
     }
-
 }

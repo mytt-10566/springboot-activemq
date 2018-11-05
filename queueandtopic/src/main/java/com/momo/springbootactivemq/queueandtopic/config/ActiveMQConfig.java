@@ -32,5 +32,4 @@ public class ActiveMQConfig {
         factory.setPubSubDomain(true);
         return factory;
     }
-
 }
