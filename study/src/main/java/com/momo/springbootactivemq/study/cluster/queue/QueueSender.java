@@ -1,4 +1,4 @@
-package com.momo.springbootactivemq.study.queue;
+package com.momo.springbootactivemq.study.cluster.queue;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -7,27 +7,22 @@ import javax.jms.*;
 public class QueueSender {
 
     public static void main(String[] args) throws Exception {
-        // 创建连接工厂
-        String brokerURL = "tcp://dev.sks.org:61616";
+        String brokerURL = "failover:(tcp://activemq01.momo.com:53531,tcp://activemq01.momo.com:53532,tcp://activemq01.momo.com:53533)?randomize=false";
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
-        // 创建连接
+
         Connection connection = connectionFactory.createConnection();
-        // 启动
         connection.start();
 
-        // 创建session，不开启事务，自动确认
-        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        // 创建destination
-        Destination destination = session.createQueue("queue.test");
-        // 创建生产者，并设置创建destination
-        MessageProducer producer = session.createProducer(destination);
-        // 消息持久化，默认持久化
-        producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+        Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
 
-        // 创建并发送text消息
+        Destination destination = session.createQueue("cluster.queue");
+
+        MessageProducer producer = session.createProducer(destination);
+
+        // text消息
         sendTextMessage(session, producer);
 
-        // 关闭所有资源（session、connection）
+        session.commit();
         session.close();
         connection.close();
     }

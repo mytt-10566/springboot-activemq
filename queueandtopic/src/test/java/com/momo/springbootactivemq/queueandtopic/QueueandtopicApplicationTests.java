@@ -22,6 +22,13 @@ public class QueueandtopicApplicationTests {
             producer.sendTextMessage("queue message, i = " + i);
         }
     }
+    
+    @Test
+    public void sendTransQueueMessage() {
+        for (int i = 0; i < 50; i++) {
+            producer.sendTransTextMessage("queue message, i = " + i);
+        }
+    }
 
     @Test
     public void sendTopicMessage() {
@@ -29,4 +36,5 @@ public class QueueandtopicApplicationTests {
             publisher.sendTextMessage("topic message, i = " + i);
         }
     }
+
 }

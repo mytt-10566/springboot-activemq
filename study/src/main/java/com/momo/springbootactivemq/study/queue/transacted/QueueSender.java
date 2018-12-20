@@ -1,4 +1,4 @@
-package com.momo.springbootactivemq.study.queue;
+package com.momo.springbootactivemq.study.queue.transacted;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -15,18 +15,21 @@ public class QueueSender {
         // 启动
         connection.start();
 
-        // 创建session，不开启事务，自动确认
-        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        // 创建session，开启事务，自动确认
+        Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
         // 创建destination
         Destination destination = session.createQueue("queue.test");
         // 创建生产者，并设置创建destination
         MessageProducer producer = session.createProducer(destination);
         // 消息持久化，默认持久化
-        producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+        producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
         // 创建并发送text消息
         sendTextMessage(session, producer);
 
+        // 提交
+        session.commit();
+        
         // 关闭所有资源（session、connection）
         session.close();
         connection.close();

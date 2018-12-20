@@ -1,4 +1,4 @@
-package com.momo.springbootactivemq.study.queue;
+package com.momo.springbootactivemq.study.queue.transacted;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -12,8 +12,7 @@ public class QueueReceiver {
         Connection connection = connectionFactory.createConnection();
         connection.start();
 
-        // 不开启本地事务，客户端手动确认
-        final Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
+        final Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
         Destination destination = session.createQueue("queue.test");
 
         // 创建消费者，并指定destination（同步消费）
@@ -33,9 +32,9 @@ public class QueueReceiver {
         while (i < 3) {
             i++;
             TextMessage message = (TextMessage) consumer.receive();
+            // 提交，确认消费成功
+            session.commit();
             System.out.println("收到TextMessage：" + message.getText());
-            // 确认消息，对应Session.CLIENT_ACKNOWLEDGE，否则对于该消息下次仍然能接收到（非持久化和持久化的区别是broker挂了，非持久化消息就收不到了）
-            message.acknowledge();
         }
     }
 
@@ -43,6 +42,8 @@ public class QueueReceiver {
         session.setMessageListener(message -> {
             try {
                 TextMessage textMessage = (TextMessage) message;
+                // 提交，确认消费成功
+                session.commit();
                 System.out.println("收到TextMessage：" + textMessage.getText());
             } catch (Exception e) {
                 e.printStackTrace();

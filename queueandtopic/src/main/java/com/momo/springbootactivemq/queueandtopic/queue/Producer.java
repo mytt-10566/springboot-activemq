@@ -32,4 +32,8 @@ public class Producer {
     public void sendTextMessage(String message) {
         jmsMessageSender.sendTextMessage(testQueueDestination, message);
     }
+
+    public void sendTransTextMessage(String message) {
+        jmsMessageSender.sendTextMessageTransacted(testQueueDestination, message);
+    }
 }
